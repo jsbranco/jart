@@ -5,6 +5,11 @@
     margin-bottom:0px;
     flex:1;
     flex-direction: row;
+    &.indent{
+      .cell{
+        padding-left:20px;
+      }
+    }
     .cell
     {
       display:inline;

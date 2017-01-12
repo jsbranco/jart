@@ -35,7 +35,7 @@ class NestedRow extends Component{
           rowCells.push(<div className={classes} key={index+"c"+colIndex}>{row[column]}</div>)
         })
 
-        return <div className="row" key={index}>{rowCells}</div>
+        return <div className="row indent" key={index}>{rowCells}</div>
       }));
     }
 
