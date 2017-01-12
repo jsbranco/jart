@@ -1,0 +1,23 @@
+.jart-table {
+  margin:10px;
+  .row{
+    display:flex;
+    margin-bottom:0px;
+    flex:1;
+    flex-direction: row;
+    .cell
+    {
+      display:inline;
+      padding:10px;
+      flex:1;
+      border: 1px solid #e8e8e8;
+      background: #f7f7f7;
+
+    }
+    .header{
+      color:#333;
+      background: linear-gradient( rgb(245, 245, 245), rgb(232, 232, 232)); /*Standard*/
+
+    }
+  }
+}
