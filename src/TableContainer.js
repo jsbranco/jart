@@ -5,25 +5,28 @@ class TableContainer extends Component{
   constructor(props)
   {
     super(props);
-    this.state={...props};
+    this.state={...props, expanded:["Group B"]};
 
   }
   toggleGroup(toggledGroup)
   {
-    let rows = this.state.rows;
-    let group = rows.map((groups)=>
+    let expanded= this.state.expanded;
+    let pos = expanded.indexOf(toggledGroup);
+    if(pos)
     {
-      return groups.group
-    }).indexOf(toggledGroup);
-    rows[group].expanded=!rows[group].expanded;
-    this.setState({...this.state, rows:rows});
+      expanded.splice(pos,1);
+    }
+    else {
+      this.state.expanded.push(toggledGroup);
+    }
+    this.setState({...this.state, expanded:this.state.expanded});
   }
   render()
   {
-    let {cols, rows} = this.state;
+    let {cols, rows,expanded} = this.state;
     let header = <Row cells={cols} isHeader={true}/>
     let tableRows = rows.map((row, index)=>{
-      return <Row cells={row} key={index} cols={cols}  toggleGroup={this.toggleGroup.bind(this)}/>
+      return <Row cells={row} key={index} cols={cols}  toggleGroup={this.toggleGroup.bind(this)} expanded={expanded}/>
     })
     return(<Table className="jart-table"> {header}   {tableRows}</Table>);
 

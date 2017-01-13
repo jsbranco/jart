@@ -20,11 +20,11 @@ class Row extends Component{
     if(isHeader)
     {
       rowCells=  cells.map((cell, index)=>{
-        return <div className={classes} key={index}>{cell.headerName}</div>
+        return <div className={classes} key={index}>{cell.display}</div>
       });
       row.push(<div className="row headers" >{rowCells}</div>);
     }else {
-      row.push(<NestedRow  rows={cells.participants} currentGroup={cells} cols={cols} toggleGroup={this.props.toggleGroup}/>)
+      row.push(<NestedRow  rows={cells.children} currentGroup={cells} cols={cols} expanded={this.state.expanded} toggleGroup={this.props.toggleGroup}/>)
       // if(typeof cells ==="object")
       // {
       //
