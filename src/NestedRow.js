@@ -8,34 +8,31 @@ class NestedRow extends Component{
     super(props);
     this.state={...props};
   }
-  _expandRow(currentRow, cols, outputRows, level)
+  _expandRow(currentRow, cols, indent)
   {
     let tableRows=[];
     let rowClasses ={};
-    rowClasses["cell"]=true;
-    rowClasses["indent-"+level]=true
-    let classes = classNames({
-      "cell":true
-    })
+    let classes = classNames(rowClasses)
     let rowCells=[];
+
     if(currentRow.length>0)
     {
-      level++;
+      indent+=1;
       currentRow.forEach((row)=>{
-        tableRows.push(...this._expandRow(row, cols));
+        tableRows.push(...this._expandRow(row, cols, indent));
       });
       return tableRows;
     }
-    rowCells.push(<div className={classes}><a onClick={()=>{this.props.toggleGroup(currentRow.group)}}>{currentRow.group}</a></div>)
+    rowCells.push(<div className="cell"><a onClick={()=>{this.props.toggleGroup(currentRow.group)}}>{currentRow.group}</a></div>)
 
     cols.forEach((col, index)=>{
       let column = col.field || col.cellRenderer;
-      rowCells.push(<div className={classes} key={index}>{currentRow[column]}</div>)
+      rowCells.push(<div className="cell" key={index}>{currentRow[column]}</div>)
     })
-    tableRows.push(<div className="row" >{rowCells}</div>)
+    tableRows.push(<div className="row" style={{textIndent:indent+"%"}} >{rowCells}</div>)
     if(currentRow.children)
     {
-      tableRows.push(...this._expandRow(currentRow.children, cols))
+      tableRows.push(...this._expandRow(currentRow.children, cols, indent));
     }
     return tableRows;
   }
@@ -52,11 +49,11 @@ class NestedRow extends Component{
 
     cols.forEach((col, index)=>{
       let column = col.field || col.cellRenderer;
-      rowCells.push(<div className={classes} key={index}>{currentGroup[column]}</div>)
+      rowCells.push(<div className={classes} key={index}>{currentGroup[column]}</div>);
     })
-    tableRows.push(<div className="row" >{rowCells}</div>)
-    // if(this.state.expanded.indexOf(currentGroup)>=0)
-    // {
+    tableRows.push(<div className="row" style={{textIndent:"1%"}}>{rowCells}</div>);
+    if(this.state.expanded.indexOf(currentGroup.group)>=0)
+    {
 
       rows.forEach((row, index)=>{
         rowCells = [];
@@ -67,14 +64,22 @@ class NestedRow extends Component{
           rowCells.push(<div className={classes} key={index+"c"+colIndex}>{row[column]}</div>)
         })
 
-        tableRows.push(<div className="row indent" key={index}>{rowCells}</div>);
-        if(row.children)
+        tableRows.push(<div className="row" style={{textIndent:"2%"}} key={index}>{rowCells}</div>);
+        rowCells=[];
+        rowCells.push(<div className="cell"><a onClick={()=>{this.props.toggleGroup(row.group)}}>{row.group}</a></div>)
+
+        cols.forEach((col, index)=>{
+          let column = col.field || col.cellRenderer;
+          rowCells.push(<div className="cell" key={index}>{row[column]}</div>)
+        })
+        tableRows.push(<div className="row" style={{textIndent:"2%"}} >{rowCells}</div>)
+        if(row.children && this.state.expanded.indexOf(row.group)>=0)
         {
-          tableRows.push(...this._expandRow(row, cols, 1))
+          tableRows.push(...this._expandRow(row.children, cols, 3))
         }
       });
 
-    // }
+    }
 
 
     return(<div>{tableRows}</div>)

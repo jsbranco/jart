@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Table from '../src/TableContainer';
 var columnDefs = [
-  {display: "Group", field: 'group'},
+  {display: "Group", field: 'group', freeze:true, type:"group"},
   {display: "Athlete", field: "athlete"},
+  {display: "Year", field: "year"},
+  {display: "Year", field: "year"},
+  {display: "Year", field: "year"},
+  {display: "Year", field: "year"},
+  {display: "Year", field: "year"},
   {display: "Year", field: "year"},
   {display: "Country", field: "country"}
 ];
@@ -18,11 +23,13 @@ var rowData = [
   },
   {group: 'Group B', athlete: 'Sausage', year: 'Spaceman', country: 'Winklepicker',
     children: [
-      {group:"Group D", athlete:"John", year:"Spaceee", children:[
+      {group:"Group D", athlete:"John", year:"Spaceee",
+        children:[
         {athlete: 'Natalie Coughlin', year: '2008', country: 'United States'},
         {athlete: 'Missy Franklin ', year: '2012', country: 'United States'},
         {athlete: 'Ole Einar Qjorndalen', year: '2002', country: 'Norway'},
-        {group:"Group E", athlete:"John", year:"Spaceee", children:[
+        {group:"Group E", athlete:"John", year:"Spaceee",
+          children:[
           {athlete: 'Natalie Coughlin', year: '2008', country: 'United States'},
           {athlete: 'Missy Franklin ', year: '2012', country: 'United States'},
           {athlete: 'Ole Einar Qjorndalen', year: '2002', country: 'Norway'},
@@ -44,7 +51,7 @@ var rowData = [
         super(props);
       }
       render(){
-        return (<Table rows={rowData} cols={columnDefs}/>);
+        return (<Table rows={rowData} height={300} cols={columnDefs}/>);
       }
     }
 

@@ -5,18 +5,23 @@ class TableContainer extends Component{
   constructor(props)
   {
     super(props);
-    this.state={...props, expanded:["Group B"]};
+    this.state={...props, expanded:[
+      "Group B",
+      "Group A",
+      "Group E",
+      "Group C",
+      "Group D",
+    ]};
 
   }
   toggleGroup(toggledGroup)
   {
     let expanded= this.state.expanded;
     let pos = expanded.indexOf(toggledGroup);
-    if(pos)
+    if(pos>=0)
     {
       expanded.splice(pos,1);
-    }
-    else {
+    }else {
       this.state.expanded.push(toggledGroup);
     }
     this.setState({...this.state, expanded:this.state.expanded});
@@ -28,7 +33,7 @@ class TableContainer extends Component{
     let tableRows = rows.map((row, index)=>{
       return <Row cells={row} key={index} cols={cols}  toggleGroup={this.toggleGroup.bind(this)} expanded={expanded}/>
     })
-    return(<Table className="jart-table"> {header}   {tableRows}</Table>);
+    return(<div ><Table className="jart-table" height={this.state.height}> {header}   {tableRows}</Table></div>);
 
   }
 }

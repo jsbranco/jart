@@ -8,7 +8,7 @@ class Table extends Component{
   render()
   {
     let {children}  = this.props;
-    return(<div className="jart-table">{children}</div>)
+    return(<div className="jart-table" style={{height:this.state.height, overflowX:"scroll"}}>{children}</div>)
   }
 }
 export default Table;

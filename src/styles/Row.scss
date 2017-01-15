@@ -1,10 +1,12 @@
 .jart-table {
-  margin:10px;
   .row{
     display:flex;
     margin-bottom:0px;
     flex:1;
     flex-direction: row;
+    flex-wrap: no-wrap;
+    justify-content: space-between;
+
     &.indent{
       .cell{
         padding-left:20px;
@@ -17,10 +19,14 @@
       flex:1;
       border: 1px solid #e8e8e8;
       background: #f7f7f7;
-
+      white-space: nowrap;;
+      min-width: 130px;
+      &.freeze{
+      }
     }
     .header{
       color:#333;
+      width:150px;
       background: linear-gradient( rgb(245, 245, 245), rgb(232, 232, 232)); /*Standard*/
 
     }
